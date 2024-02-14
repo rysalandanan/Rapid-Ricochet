@@ -7,7 +7,6 @@ public class ObstacleSpwner : MonoBehaviour
     [SerializeField] GameObject HexagonObstacle;
     private float _leftSideSpawner;
     private float _rightSideSpawner;
-    // Start is called before the first frame update
     void Start()
     {
         StartCoroutine(IsoObsSpawn());
