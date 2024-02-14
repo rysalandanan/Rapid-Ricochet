@@ -8,15 +8,18 @@ public class BallMovement : MonoBehaviour
     [SerializeField] private float SpeedIncrease;
     [SerializeField] private TextMeshProUGUI LeftTextScore;
     [SerializeField] private TextMeshProUGUI RightTextScore;
+    public bool isReal;
     private Rigidbody2D _rb;
     private int hitCounter;
     private int LScore;
     private int RScore;
+    private AudioSource _ballBounce;
 
     private void Start()
     {
         _rb = GetComponent<Rigidbody2D>();
         Invoke("BallStart", 3f);
+        _ballBounce = GetComponent<AudioSource>();
     }
     private void FixedUpdate()
     {
@@ -101,21 +104,25 @@ public class BallMovement : MonoBehaviour
     }
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        if (collision.gameObject.CompareTag("Player"))
+        if(isReal)
         {
-            BallBounce(collision.transform);
-        }
-        else if (collision.gameObject.CompareTag("Left_Wall"))
-        {
-            RScore++;
-            RightTextScore.text = RScore.ToString();
-            BallReset();
-        }
-        else if (collision.gameObject.CompareTag("Right_Wall"))
-        {
-            LScore++;
-            LeftTextScore.text = LScore.ToString();
-            BallReset();
+            if (collision.gameObject.CompareTag("Paddle"))
+            {
+                BallBounce(collision.transform);
+                _ballBounce.Play();
+            }
+            else if (collision.gameObject.CompareTag("Left_Goal"))
+            {
+                RScore++;
+                RightTextScore.text = RScore.ToString();
+                BallReset();
+            }
+            else if (collision.gameObject.CompareTag("Right_Goal"))
+            {
+                LScore++;
+                LeftTextScore.text = LScore.ToString();
+                BallReset();
+            }
         }
     }
 }

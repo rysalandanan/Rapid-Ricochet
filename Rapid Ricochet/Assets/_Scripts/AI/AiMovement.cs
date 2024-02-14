@@ -13,17 +13,17 @@ public class AiMovement : MonoBehaviour
     }
     private void Update()
     {
-        if (ball.transform.position.y  > transform.position.y + 0.5f)
+        if (ball.transform.position.y > transform.position.y + 0.5f)
         {
-            AiMove = new Vector2(0, 1);
+            AiMove = new Vector2(0,1);
         }
-        else if(ball.transform.position.y < transform.position.y - 0.5f)
+        else if (ball.transform.position.y < transform.position.y - 0.5f)
         {
-            AiMove = new Vector2(0, -1);
+            AiMove = new Vector2(0,-1);
         }
         else
         {
-            AiMove = new Vector2(0, 0);
+            AiMove = new Vector2(0,0);
         }
     }
     private void FixedUpdate()
